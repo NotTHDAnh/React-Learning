@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <!-- Deep burgundy outer field -->
+  <rect width="256" height="256" fill="#5A0B20"/>
+
+  <!-- Three-layer frame: outer burgundy, thin white, inner burgundy -->
+  <rect x="10" y="10" width="236" height="236" rx="2" fill="#5A0B20" stroke="#5A0B20" stroke-width="8"/>
+  <rect x="16" y="16" width="224" height="224" fill="#5A0B20" stroke="#FFFFFF" stroke-width="2"/>
+  <rect x="21" y="21" width="214" height="214" fill="#5A0B20"/>
+
+  <!-- Handwritten D.A -->
+  <g fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- D -->
+    <path d="M82 153
+             C91 130 99 104 106 83
+             C110 71 116 64 125 64
+             C140 64 145 76 141 91
+             C136 111 119 130 98 143
+             C88 149 79 155 76 151
+             C73 147 79 140 88 134"/>
+    <path d="M104 84 C99 101 94 117 89 132"/>
+
+    <!-- connecting stroke -->
+    <path d="M129 137 C140 130 150 128 162 128"/>
+
+    <!-- A -->
+    <path d="M139 153
+             C149 132 162 104 177 76
+             C182 67 187 64 190 68
+             C193 72 189 85 186 98
+             C181 119 177 138 177 155"/>
+    <path d="M157 126 C169 121 184 119 198 121"/>
+  </g>
+
+  <!-- subtle handwritten period -->
+  <circle cx="130" cy="154" r="2.2" fill="#FFFFFF"/>
+</svg>
