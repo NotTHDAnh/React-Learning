@@ -453,6 +453,24 @@ JS using lib fucntion of react (dist/folder)
 
 .render() can be passed into by JS variable, Number, string, 1 array, 1 JSX
 
+## JavaScript Spread Operator
+
+**1.What for**
+
+- Use to spread all element of an array into different unique object
+- Use to spread all key-value pairs into an object to merge or copy
+- usually used for data merging, copy array or object, add new data more flexible
+
+Eg:
+
+```js
+let hobby = ["reading","listening"];
+
+const newHobbies = "travel";
+
+hobby = [..hobby,"abc" ,newHobbies];
+```
+
 ## Favicons
 
 - Favicons: Favourite + icon
@@ -566,10 +584,214 @@ function FunctionName() {
 <FunctionName />
 ```
 
+### How to Pass from event function parent component into child component
+
+1. We need to define the event function at anywhere, which located parent component
+
+2. After that we pass the function of that event via props into the component
+
+**TabButton.jsx**
+
+```jsx
+export default function TabButton({children, onSelect}) {
+    return (
+        <li>
+            <button onClick={onSelect}>{children}
+            </button>
+        </li>
+    );
+}
+```
+
+**App.jsx**
+
+```jsx
+function App() {
+    function handleSelect() {
+        alert("OK");
+    }
+    return (
+        <TabButton onSelect={handleSelect}>CLICK ME</TabButton>
+    );
+}
+```
+
 ## PROPS
 
 basically Component arguments
 
+### Eslint error
+
+In code, when we pass props into component, the lint could be alert that the props is missing in props validation, so the reason to this is: the validation of props(datatype and required of props) is not defined yet
+
+So to fix this, we need an extra lib called props-types: which help us to define it
+
+Install it via:
+
+```bash
+npm install prop-types
+```
+
+```jsx
+import PropTypes from "props-types";
+
+// SO assume that we have a component named MainContent
+MainContent.propTypes = {
+    image: PropTypes.string.isRequired, // this img props must be string and can not be blank
+    title : PropTypes.string.isRequired, // this title props must be string and can not be blank
+    desc : PropTypes.string, // description is optional
+};
+```
+
+### Code optimization
+
+**Array Index**
+
+So when there's a lot of data and you need to fill it in the component props, there's will be pretty much of boiler plate code, so to optimize this, we just need to convert all the data into array and change the content into array elements using array's index, this make the code pretty much cleaner
+
+Eg:
+
+```jsx
+// Assume that the component is MainContent and the array is myData which contain object's info
+<MainContent {myData[0].name, myData[0].title}/>
+```
+
+**Spread Operator**
+And also, you can you spread operator for the more optimized
+
+Eg:
+
+```jsx
+// Assume that the component is MainContent and the array is myData which contain object's info
+<MainContent {...myData[0]}/>
+```
+
+**Destructuring**
+
+We can use Destructuring to avoid props call
+
+from old code:
+
+```jsx
+funciton MainContent(props) {
+    return (
+        <li>
+            <img src={props.img} alt={props.tilte}/>
+            <h2>{props.title}</h2>
+            <p>{props.desc}</p>
+        </li>
+    )
+}
+```
+
+To this
+
+```jsx
+
+funciton MainContent({img, title, desc}) {
+    return (
+        <li>
+            <img src={img} alt={title}/>
+            <h2>{title}</h2>
+            <p>{desc}</p>
+        </li>
+    )
+}
+```
+
+### Component Optimization
+
+- We just need to add a css file into that Component folder!
+
+### Props.children
+
+So when we use a component, sometime we need to insert a text between an open-closed tag component like this
+
+```jsx
+<TabButton>Click me!</TabButton>
+```
+
+But React doesn't understand what it is, so that in this case, we need to use props.children which do the same thing as we do, but there's a extra step
+
+```jsx
+// In TabButton.jsx
+export default funciton TabButton(props) {
+    return (
+        <li>
+            <button>{props.children}</button>
+        </li>
+    );
+}
+
+// or we can use the Destructuring method
+export default funciton TabButton({children}) {
+    return (
+        <li>
+            <button>{children}</button>
+        </li>
+    );
+}
+// In the main app, we use this
+<TabButton>Click me</TabButton>
+```
+
+Another way to do this
+
+```jsx
+export default funciton TabButton({label}) {
+    return (
+        <li>
+            <button>{label}</button>
+        </li>
+    );
+}
+
+// but in main we have to assign value to that key "label"
+<TabButton label="button1"></TabButton>
+
+```
+
+## HOW TO MODULE COMPONENT
+
+- first thing first, used need to create a folder named **components** And put components into that
+
 ## STATE
 
+In a function, even though we changed the values for the tabContent but it content's doesn't update on UI
+
+```jsx
+function handleSelect(selectedButton) {
+    alert(`${selectedButton} is chosen`);
+    tabContent = selectedButton;
+}
+```
+
+The reason is: functions is only called once when the application is running, and when we clicked the button, func handleSelect is called, but App() isn't called again so that it doesn't assign the value to variable tabContent
+
+```jsx
+function App() {
+    let tabContent = "Content is shown";
+}
+
+function handleSelect(selectedButton) {
+    alert(`${selectedButton} is chosen`);
+    tabContent = selectedButton;
+}
+
+```
+
+to update an element we use **useState** - (it's mean data's state, from A -> B)
+
+useState has some basic attribute:
+
+- it get a initial value (initState)
+- it return a array including 2 elements: initial value and a function to update that State
+
+```jsx
+const [state,useState] = useState(initState);
+```
+
 ## HOOK
+
+And every function start with use... is called a React Hook
+=> Hook genuinely are feature functions of react which is pre-designed
